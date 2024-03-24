@@ -1,108 +1,66 @@
 .container {
     height: 100vh ;
-    flex: 1;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .inner_container {
+    min-width: 400px;
+    width: 30%;
     display: flex;
-    padding: 10vh;
-    height: 85%; 
-    width: 100%;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
+.logo_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2E0052;
+    gap: 8px;
+}
+.logo_header img {
+    width: 44px;
+}
 .form_container {
-    display: flex;
     width: 100%;
-    gap: 1rem;
+    border-radius: 23px;
+    border: 1px solid #D9D9D9;
+    display: flex;
+    justify-self: start;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 0.6rem;
+    padding: 40px 48px;
 }
 
-.input_wrapper {
-    width: 100%;
-}
-.input_wrapper p {
-    color: red;
-    padding-left: 2px;
-    font-size: small;
-}
-.input_wrapper input {
-    padding-left: 2.5rem !important;
+.form_heading {
+    font-size: xxx-large;
+    font-weight: 400;
+    margin: 0;
 }
 
-.input_span {
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    justify-content: space-between;
+.privacy_para{
+    font-size: 17px;
+    font-weight: regular;
+    margin: 0;
 }
 
-.single_icon {
-    position: absolute;
-    padding: 4px;
-}
-
-.icon_group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.input_span input {
-    padding-left: 3vw;
-}
-.icon_group img:first-child  {
-    position: absolute;
-    left: 4px;
-}
-
-
-.icon_group img:last-child  {
-    position: absolute;
-    right: 4px;
-    cursor: pointer;
-}
-
-.button_group {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.button_group p {
-    color: #828282;
-}
-
-.primary_button{
-    background-color: #17A2B8;
+.signup_button{
+    padding: 12px;
+    font-size: x-large;
     color: white;
-    border: none;
-    outline: none;
-    font-size: large;
-    width: 100%;
-    padding: 12px;
+    background-color: #2E0052;
     cursor: pointer;
-    border-radius: 55px;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 1rem;
 }
 
-.secondary_button{
-    border: 1px solid #17A2B8;
-    color: #17A2B8;
-    background-color: transparent;
-    outline: none;
+.signin_redirect{
+    margin: 2rem;
+    font-weight: 600;
     font-size: large;
-    width: 100%;
-    padding: 12px;
-    cursor: pointer;
-    border-radius: 55px;
 }

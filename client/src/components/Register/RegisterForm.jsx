@@ -1,10 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import avatar from "../../assets/icons/avatar.png";
-import lock from "../../assets/icons/lock.svg";
-import mail from "../../assets/icons/mail.svg";
-import showpass from "../../assets/icons/eye.svg";
-import passhide from "../../assets/icons/passhide.svg";
-
+import logo from "../../assets/icons/logo.png";
 import styles from "./registerform.module.css";
 import { registerAccount } from "../../api/auth";
 import { Formik, Form } from "formik";
@@ -14,7 +9,10 @@ import { useState } from "react";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const [ showPassword, setShowPassword] = useState({ password: false, confirmpassword: false})
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmpassword: false,
+  });
 
   const SignUpSchema = Yup.object().shape({
     name: Yup.string()
@@ -39,8 +37,8 @@ const RegisterForm = () => {
       if (res?.token && res?.name) {
         localStorage.setItem("token", res.token);
         localStorage.setItem("user", res.name);
-        toast.success(`${res.message}`)
-        navigate('/');
+        toast.success(`${res.message}`);
+        navigate("/");
         resetForm();
       }
     } catch (error) {
@@ -51,104 +49,54 @@ const RegisterForm = () => {
 
   return (
     <Formik
-        initialValues={{
-          name: "",
-          email: "",
-          password: "",
-          confirmpassword: "",
-        }}
-        validationSchema={SignUpSchema}
-        onSubmit={(value, { resetForm }) => handleCreateAccount(value, { resetForm })}
-      >
-        {(formik) => (
+      initialValues={{
+        name: "",
+        email: "",
+        password: "",
+        confirmpassword: "",
+      }}
+      validationSchema={SignUpSchema}
+      onSubmit={(value, { resetForm }) =>
+        handleCreateAccount(value, { resetForm })
+      }
+    >
+      {(formik) => (
         <div className={styles.container}>
           <div className={styles.inner_container}>
+            <span className={styles.logo_header}>
+              <img src={logo} alt="logo" />
+              <h1>Musicart</h1>
+            </span>
             <Form className={styles.form_container}>
-              <h1>Register</h1>
-              <div className={styles.input_wrapper}>
-                <span className={styles.input_span}>
-                  <input
-                    type="text"
-                    id="name"
-                    placeholder="Name"
-                    value={formik.values.name}
-                    onChange={formik.handleChange}
-                  />
-                  <img src={avatar} alt="user" className={styles.single_icon} />
-                </span>
-                {formik.errors.name && <p>{formik.errors.name}</p>}
-              </div>
-
-              <div className={styles.input_wrapper}>
-                <span className={styles.input_span}>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="Email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                  />
-                  <img src={mail} alt="mail" className={styles.single_icon} />
-                </span>
-                {formik.errors.email && <p>{formik.errors.email}</p>}
-              </div>
-
-              <div className={styles.input_wrapper}>
-                <span className={styles.input_span}>
-                  <input
-                    type={showPassword.password ? "text": "password"}
-                    id="password"
-                    placeholder="Password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                  />
-                  <span className={styles.icon_group}>
-                    <img src={lock} alt="lock" />
-                    <img src={showPassword?.password ? passhide : showpass} alt="watch"
-                     onClick={()=> setShowPassword((prev) => ({...prev, password: !prev.password}))}/>
-                  </span>
-                </span>
-                {formik.errors.password && <p>{formik.errors.password}</p>}
-              </div>
-              <div className={styles.input_wrapper}>
-                <span className={styles.input_span}>
-                  <input
-                    type={showPassword.confirmpassword ? "text": "password"}
-                    id="confirmpassword"
-                    placeholder="Confirm Password"
-                    value={formik.values.confirmpassword}
-                    onChange={formik.handleChange}
-                  />
-                  <span className={styles.icon_group}>
-                    <img src={lock} alt="lock" />
-                    <img src={showPassword?.confirmpassword ? passhide : showpass} alt="watch"  onClick={()=> setShowPassword((prev) => ({...prev, confirmpassword: !prev.confirmpassword}))}/>
-                  </span>
-                </span>
-                {formik.errors.confirmpassword && (
-                  <p>{formik.errors.confirmpassword}</p>
-                )}
-              </div>
-              <div className={styles.button_group}>
-                <button
-                  className={styles.primary_button}
-                  type="button"
-                  onClick={formik.handleSubmit}
-                >
-                  Register
-                </button>
-                <p>Already have an account ?</p>
-                <button
-                  className={styles.secondary_button}
-                  onClick={() => navigate("/login")}
-                >
-                  Login
-                </button>
-              </div>
+              <p className={styles.form_heading}>Create Account</p>
+              <label>Your name</label>
+              <input type="text" />
+              <label>Mobile Number</label>
+              <input type="text" />
+              <label>Email Id</label>
+              <input type="email" />
+              <label>Password</label>
+              <input type="password" />
+              <p className={""}>
+                By enrolling your mobile phone number, you consent to receive
+                automated security notifications via text message from Musicart.
+                Message and data rates may apply.
+              </p>
+              <button type="button" className={styles.signup_button}>
+                Continue
+              </button>
+              <p className={styles.privacy_para}>
+                By continuing, you agree to Musicart privacy notice and
+                conditions of use.
+              </p>
             </Form>
+            <span className={styles.signin_redirect}>
+              Already have an account? <a href="/login">Sign in</a>
+            </span>
           </div>
         </div>
-        )}
-      </Formik>
+      )}
+    </Formik>
   );
 };
 

@@ -1,11 +1,11 @@
-import Banner from "../../components/LandingPage/Banner"
+import Footer from "../../components/Footer/Footer"
 import LoginForm from "../../components/Login/LoginForm"
 import styles from "./loginpage.module.css"
 const LoginPage = () => {
   return (
     <div className={styles.container}>
-      <Banner/>
       <LoginForm/>
+      <Footer />
     </div>
   )
 }
