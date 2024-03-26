@@ -1,0 +1,28 @@
+
+.header{
+    height: 20px;
+    background-color: #2E0052;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    width: 100%;
+}
+.header_span {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: 500;
+    gap: 1rem;
+}
+
+.header_span a {
+    text-decoration: none;
+    font-size: larger;
+    color: white;
+}
+.header_para{
+    font-size: medium;
+    font-weight: 600;
+    color: white;
+}
