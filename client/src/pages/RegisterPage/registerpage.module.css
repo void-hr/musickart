@@ -1,6 +1,18 @@
 .container {
     height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.mobile_header {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .mobile_header  {
+        display: flex;
+        width: 100%;
+    }
 }

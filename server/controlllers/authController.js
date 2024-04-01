@@ -24,6 +24,7 @@ const registerAccount = async (req, res) => {
     const newUser = await User.create({
       name: name,
       email: email,
+      mobile: mobile,
       password: hash,
     });
     const jwtToken = await jwt.sign(
@@ -37,6 +38,7 @@ const registerAccount = async (req, res) => {
       status: "SUCCESS",
     });
   } catch (error) {
+    console.log(error.message)
     return res
       .status(500)
       .json({ message: "Internal Server Error", status: "ERROR" });

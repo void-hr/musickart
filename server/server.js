@@ -3,6 +3,9 @@ const cors = require("cors");
 const app = express();
 const connectDB = require("./config/mongoDB");
 const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+
 
 require("dotenv").config();
 
@@ -18,6 +21,9 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 app.use("/api/v1/account", authRoutes);
+app.use("/api/v1/product", productRoutes);
+app.use("/api/v1/cart", cartRoutes);
+
 
 app.get("/", (req, res) => {
   res.json({ message: "Server is up 🚀" });

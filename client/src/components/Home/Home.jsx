@@ -5,10 +5,11 @@ import search from "../../assets/icons/search.png";
 import listview from "../../assets/icons/listview.svg";
 import gridview from "../../assets/icons/gridview.svg";
 import chatbot from "../../assets/icons/chatbot.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GridView from "../GridView/GridView";
 import ListView from "../ListView/ListView";
-
+import { fetchProducts } from "../../api/product";
+import SubNavbar from "../SubNavbar/SubNavbar";
 const headphoneType = [];
 const company = [];
 const colour = [];
@@ -16,95 +17,37 @@ const price = [];
 
 const Home = () => {
   const [view, setView] = useState(0);
+  const [ products, setProducts ] = useState([]);
 
-  const data = [
-    {
-      name: "boAt Rockerz",
-      price: 1120,
-      image: "https://i.imgur.com/DmgGxTL.jpg",
-      color: "Black",
-      type: "In-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1620,
-      image: "https://i.imgur.com/5cOl73m.jpg",
-      color: "Red",
-      type: "Over-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1120,
-      image: "https://i.imgur.com/DmgGxTL.jpg",
-      color: "Black",
-      type: "In-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1620,
-      image: "https://i.imgur.com/5cOl73m.jpg",
-      color: "Red",
-      type: "Over-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1120,
-      image: "https://i.imgur.com/DmgGxTL.jpg",
-      color: "Black",
-      type: "In-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1620,
-      image: "https://i.imgur.com/5cOl73m.jpg",
-      color: "Red",
-      type: "Over-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1120,
-      image: "https://i.imgur.com/DmgGxTL.jpg",
-      color: "Black",
-      type: "In-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1620,
-      image: "https://i.imgur.com/5cOl73m.jpg",
-      color: "Red",
-      type: "Over-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1120,
-      image: "https://i.imgur.com/DmgGxTL.jpg",
-      color: "Black",
-      type: "In-ear headphone",
-    },
-    {
-      name: "boAt Rockerz",
-      price: 1120,
-      image: "https://i.imgur.com/DmgGxTL.jpg",
-      color: "Black",
-      type: "In-ear headphone",
-    },
-  ];
+  useEffect(()=> {
+    fetchAllProducts();
+  },[])
+
+
+  const fetchAllProducts = async () => {
+    try {
+      const res = await fetchProducts();
+      setProducts(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleBuy = () => {
+    
+  }
   return (
     <div className={styles.container}>
-      <div className={styles.home_navbar}>
-        <div className={styles.navbar_left}>
-          <span className={styles.navbar_logo}>
-            <img src={logo} alt="logo" />
-            <h1>Musicart</h1>
-          </span>
-          <p>Home</p>
-        </div>
-        <div className={styles.navbar_right}></div>
-      </div>
+     
+      <SubNavbar />
       <div className={styles.banner}>
+        <div className={styles.banner_content}>
         <p className={styles.banner_para}>
           Grab upto 50% off on Selected headphones
         </p>
+        <button type="button" className={styles.mobile_buy_now_button} onClick={handleBuy}>Buy Now</button>
+        </div>
+       
         <div className={styles.banner_girl_container}>
           <img src={bannergirl} alt="banner_girl" />
         </div>
@@ -117,6 +60,7 @@ const Home = () => {
           placeholder="Search by Product Name"
         />
       </div>
+
 
       <div className={styles.filter_navbar}>
         <div className={styles.filter_left}>
@@ -138,6 +82,7 @@ const Home = () => {
               onClick={() => setView(1)}
             />
           </span>
+          <div className={styles.filter_group}>
           <select name="Headphone type" className={styles.custom_select}>
             <option value="headphone type" hidden defaultValue={true}>
               Heaphone Type
@@ -182,21 +127,32 @@ const Home = () => {
             <option value="over-ear">&#x20b9;10000 - &#x20b9;20000</option>
           </select>
         </div>
+        </div>
         <div className={styles.filter_right}>
           <select name="sort" className={styles.sort_select}>
-            <option value="featured">Featured</option>
+            <option value="featured" defaultChecked hidden>Sort by: featured</option>
             <option value="featured">Featured</option>
             <option value="featured">Featured</option>
             <option value="featured">Featured</option>
           </select>
-        </div>
+          </div>
+
+          <div className={styles.mobie_filter_right}>
+          <select name="sort" className={styles.sort_select}>
+            <option value="featured" defaultChecked hidden>Sort By</option>
+            <option value="featured">Sort by: Featured</option>
+            <option value="featured">Featured</option>
+            <option value="featured">Featured</option>
+          </select>
+          </div>
         <div className={styles.feedback}>
           <img src={chatbot} alt="chatbot" />
         </div>
       </div>
 
+
       <div className={styles.product_container}>
-        {view === 0 ? <GridView data={data} /> : <ListView />}
+      { view === 0 ? <GridView products={products} /> : <ListView products={products}/>}
       </div>
     </div>
   );

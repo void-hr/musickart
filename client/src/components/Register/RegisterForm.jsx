@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/logo.png";
 import styles from "./registerform.module.css";
 import { registerAccount } from "../../api/auth";
@@ -16,19 +16,16 @@ const RegisterForm = () => {
 
   const SignUpSchema = Yup.object().shape({
     name: Yup.string()
-      .min(2, "Too Short!")
+      .min(4, "Too Short!")
       .max(50, "Too Long!")
       .required("* Name is required"),
-
+    mobile: Yup.string().required("* Enter your mobile number").matches(/^[0-9]{10}$/, 'Invalid mobile number'),
     email: Yup.string().email().required("* Email is required"),
 
     password: Yup.string()
       .required("* Password is required")
       .min(6, "Password is too short - should be 6 chars minimum"),
 
-    confirmpassword: Yup.string()
-      .required("* Please retype your password.")
-      .oneOf([Yup.ref("password")], "Your passwords do not match."),
   });
 
   const handleCreateAccount = async (value, { resetForm }) => {
@@ -51,9 +48,9 @@ const RegisterForm = () => {
     <Formik
       initialValues={{
         name: "",
+        mobile: "",
         email: "",
         password: "",
-        confirmpassword: "",
       }}
       validationSchema={SignUpSchema}
       onSubmit={(value, { resetForm }) =>
@@ -67,22 +64,45 @@ const RegisterForm = () => {
               <img src={logo} alt="logo" />
               <h1>Musicart</h1>
             </span>
+            <span className={styles.mobile_welcome_header}>
+              <p className={styles.welcome_para}>Welcome</p>
+            </span>
             <Form className={styles.form_container}>
               <p className={styles.form_heading}>Create Account</p>
               <label>Your name</label>
-              <input type="text" />
+              <input type="text" 
+              id="name"
+              onChange={formik.handleChange}
+              className={formik.errors.name ? styles.input_error : ""}/>
+              {formik.errors.name && <p  className={styles.error_para}>{formik.errors.name}</p>}
+
               <label>Mobile Number</label>
-              <input type="text" />
+              <input type="text" 
+              id="mobile"
+              onChange={formik.handleChange}
+              className={formik.errors.mobile ? styles.input_error : ""}/>
+              {formik.errors.mobile && <p  className={styles.error_para}>{formik.errors.mobile}</p>}
+
               <label>Email Id</label>
-              <input type="email" />
+              <input type="email" 
+              id="email"
+              onChange={formik.handleChange}
+              className={formik.errors.email ? styles.input_error : ""}/>
+              {formik.errors.email && <p  className={styles.error_para}>{formik.errors.email}</p>}
+
               <label>Password</label>
-              <input type="password" />
-              <p className={""}>
+              <input type="password" 
+              id="password"
+              onChange={formik.handleChange}
+              className={formik.errors.password ? styles.input_error : ""}/>
+              {formik.errors.password && <p  className={styles.error_para}>{formik.errors.password}</p>}
+
+              <p className={styles.confirm_para}>
                 By enrolling your mobile phone number, you consent to receive
                 automated security notifications via text message from Musicart.
                 Message and data rates may apply.
               </p>
-              <button type="button" className={styles.signup_button}>
+              <button type="button" className={styles.signup_button} onClick={formik.handleSubmit}>
                 Continue
               </button>
               <p className={styles.privacy_para}>
@@ -91,7 +111,7 @@ const RegisterForm = () => {
               </p>
             </Form>
             <span className={styles.signin_redirect}>
-              Already have an account? <a href="/login">Sign in</a>
+              Already have an account? <Link to="/login">Sign in</Link>
             </span>
           </div>
         </div>

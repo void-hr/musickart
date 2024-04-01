@@ -1,0 +1,30 @@
+.home_navbar {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.navbar_left,
+.navbar_right {
+    display: flex;
+    align-items: last baseline;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.navbar_logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar_logo img {
+    width: 40px;
+}
+
+
+@media (max-width: 480px) {
+    .home_navbar {
+        display: none;
+    }
+}
