@@ -25,7 +25,7 @@ const addToCart = async (req, res) => {
       cart.bill = cart.items.filter((item) => item.product !== productId.toString()).reduce(
         (total, item) => total + item.price * item.quantity,
         0
-      ) + existingItem.quantity * existingItem.price;
+      );
       const cartData = await cart.save();
 
       return res.status(200).json({
@@ -94,4 +94,36 @@ const getCartItems = async( req,res ) => {
     });
   }
 }
-module.exports = { addToCart, getCartItems };
+
+
+const deleteCart = async (req,res) => {
+  
+  try {
+    const cartId = req.params.cart;
+
+    if (!cartId) {
+      return res.status(400).json({ message: "Invalid Cart ID", status: "ERROR" });
+    }
+
+    const deletedCart = await Cart.findByIdAndDelete(cartId);
+
+    if (!deletedCart) {
+      return res.status(404).json({ message: "Cart not found", status: "ERROR" });
+    }
+
+    return res.status(200).json({
+      message: "Cart deleted successfully",
+      deletedCart,
+      status: "SUCCESS",
+    });
+    
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal Server Error",
+      status: "ERROR",
+    });
+  }
+}
+
+
+module.exports = { addToCart, getCartItems, deleteCart };

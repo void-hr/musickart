@@ -22,3 +22,11 @@ input {
     word-wrap: break-word;
     white-space: pre-wrap;
 }
+
+::-webkit-scrollbar {
+    display: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  

@@ -10,23 +10,71 @@ import GridView from "../GridView/GridView";
 import ListView from "../ListView/ListView";
 import { fetchProducts } from "../../api/product";
 import SubNavbar from "../SubNavbar/SubNavbar";
-const headphoneType = [];
-const company = [];
-const colour = [];
-const price = [];
+import { useNavigate } from "react-router-dom";
+import Feedback from "../Feedback/Feedback";
+const selectOptions = [
+  { 
+    name: 'type', 
+    options: [
+      { display: 'Featured', value: 'Featured' },
+      { display: 'In-ear headphone', value: 'In Ear' },
+      { display: 'On-ear headphone', value: 'On Ear' },
+      { display: 'Over-ear headphone', value: 'Over Ear' }
+    ], 
+    defaultValue: "Headphone Type" 
+  },
+  { 
+    name: 'company', 
+    options: [
+      { display: 'Featured', value: 'Featured' },
+      { display: 'JBL', value: 'JBL' },
+      { display: 'Sony', value: 'SONY' },
+      { display: 'Boat', value: 'BOAT' },
+      { display: 'Zebronics', value: 'ZEBRONICS' },
+      { display: 'Marshall', value: 'MARSHALL' },
+      { display: 'Ptron', value: 'PTRON' }
+    ], 
+    defaultValue: "Company" 
+  },
+  { 
+    name: 'colour', 
+    options: [
+      { display: 'Featured', value: 'Featured' },
+      { display: 'Black', value: 'Black' },
+      { display: 'White', value: 'White' },
+      { display: 'Blue', value: 'Blue' },
+      { display: 'Brown', value: 'Brown' }
+    ], 
+    defaultValue: "Colour" 
+  },
+  { 
+    name: 'price', 
+    options: [
+      { display: 'Featured', value: 'Featured' },
+      { display: '₹0 - ₹1000', value: '1' },
+      { display: '₹1000 - ₹10000', value: '2' },
+      { display: '₹10000 - ₹20000', value: '3' }
+    ], 
+    defaultValue: "Price" 
+  },
+];
+
 
 const Home = () => {
   const [view, setView] = useState(0);
-  const [ products, setProducts ] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [ filters, setFilters ] = useState({});
+  const [ showFeedback, setShowFeedback] = useState(true);
+  const navigate = useNavigate();
 
-  useEffect(()=> {
+  useEffect(() => {
     fetchAllProducts();
-  },[])
+  }, [filters])
 
 
   const fetchAllProducts = async () => {
     try {
-      const res = await fetchProducts();
+      const res = await fetchProducts(filters);
       setProducts(res);
     } catch (error) {
       console.log(error);
@@ -34,20 +82,30 @@ const Home = () => {
   };
 
   const handleBuy = () => {
-    
+    navigate("/cart")
   }
+
+  const handleFilter = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name] : value !== "Featured" ? value : "",
+    }))
+  }
+
+  
   return (
     <div className={styles.container}>
-     
+
       <SubNavbar />
       <div className={styles.banner}>
         <div className={styles.banner_content}>
-        <p className={styles.banner_para}>
-          Grab upto 50% off on Selected headphones
-        </p>
-        <button type="button" className={styles.mobile_buy_now_button} onClick={handleBuy}>Buy Now</button>
+          <p className={styles.banner_para}>
+            Grab upto 50% off on Selected headphones
+          </p>
+          <button type="button" className={styles.mobile_buy_now_button} onClick={handleBuy}>Buy Now</button>
         </div>
-       
+
         <div className={styles.banner_girl_container}>
           <img src={bannergirl} alt="banner_girl" />
         </div>
@@ -83,77 +141,54 @@ const Home = () => {
             />
           </span>
           <div className={styles.filter_group}>
-          <select name="Headphone type" className={styles.custom_select}>
-            <option value="headphone type" hidden defaultValue={true}>
-              Heaphone Type
-            </option>
-            <option value="featured">Featured</option>
-            <option value="in-ear">In-ear headphone</option>
-            <option value="on-ear">On-ear headphone</option>
-            <option value="over-ear">Over-ear headphone</option>
-          </select>
 
-          <select name="Company" className={styles.custom_select}>
-            <option value="Company" hidden defaultValue={true}>
-              Company
-            </option>
-            <option value="featured">Featured</option>
-            <option value="in-ear">JBL</option>
-            <option value="on-ear">Sony</option>
-            <option value="over-ear">Boat</option>
-            <option value="over-ear">Zebronics</option>
-            <option value="over-ear">Marshall</option>
-            <option value="over-ear">Ptron</option>
-          </select>
+            {selectOptions.map((select, idx) => (
+              <select key={idx} name={select.name} onChange={handleFilter} className={styles.custom_select}>
+                <option hidden defaultValue>{select.defaultValue}</option>
+                {select.options.map((option, i) => (
+                  <option key={i} value={option.value}>{option.display}</option>
+                ))}
+              </select>
+            ))}
 
-          <select name="Colour" className={styles.custom_select}>
-            <option value="Colour" hidden defaultValue={true}>
-              Colour
-            </option>
-            <option value="featured">Featured</option>
-            <option value="in-ear">Black</option>
-            <option value="on-ear">White</option>
-            <option value="over-ear">Blue</option>
-            <option value="over-ear">Brown</option>
-          </select>
 
-          <select name="Price" className={styles.custom_select}>
-            <option value="headphone type" hidden defaultValue={true}>
-              Price
-            </option>
-            <option value="featured">Featured</option>
-            <option value="in-ear"> &#x20b9;0 - &#x20b9;1000</option>
-            <option value="on-ear">&#x20b9;1000 - &#x20b9;10000</option>
-            <option value="over-ear">&#x20b9;10000 - &#x20b9;20000</option>
-          </select>
-        </div>
+          </div>
         </div>
         <div className={styles.filter_right}>
-          <select name="sort" className={styles.sort_select}>
-            <option value="featured" defaultChecked hidden>Sort by: featured</option>
-            <option value="featured">Featured</option>
-            <option value="featured">Featured</option>
-            <option value="featured">Featured</option>
-          </select>
-          </div>
+          <select name="sort" className={styles.sort_select} onChange={handleFilter}>
+            <option value="featured" defaultChecked hidden>Sort by: Featured</option>
+            <option value="lowest">Price: Lowest</option>
+            <option value="highest">Price: Highest</option>
+            <option value="sortaz">Name: (A-Z)</option>
+            <option value="za">Name: (Z-A)</option>
 
-          <div className={styles.mobie_filter_right}>
-          <select name="sort" className={styles.sort_select}>
-            <option value="featured" defaultChecked hidden>Sort By</option>
-            <option value="featured">Sort by: Featured</option>
-            <option value="featured">Featured</option>
-            <option value="featured">Featured</option>
           </select>
-          </div>
-        <div className={styles.feedback}>
-          <img src={chatbot} alt="chatbot" />
+        </div>
+
+        <div className={styles.mobie_filter_right}>
+          <select name="sort" className={styles.sort_select} onChange={handleFilter}>
+            <option value="featured" defaultChecked hidden>Sort By</option>
+            <option value="lowest">Price: Lowest</option>
+            <option value="highest">Price: Highest</option>
+            <option value="az">Name: (A-Z)</option>
+            <option value="za">Name: (Z-A)</option>
+          </select>
         </div>
       </div>
 
 
       <div className={styles.product_container}>
-      { view === 0 ? <GridView products={products} /> : <ListView products={products}/>}
+        {view === 0 ? <GridView products={products} /> : <ListView products={products} />}
+        <div className={styles.feedback}>
+          <div className={styles.feeback_in} onClick={()=> setShowFeedback(!showFeedback)}>
+          <img src={chatbot} alt="chatbot" />
+          </div>
+          { showFeedback && <div className={styles.modal}>
+          <Feedback setShowFeedback={setShowFeedback}/>
+          </div>}
+        </div>
       </div>
+
     </div>
   );
 };

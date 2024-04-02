@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const [cartItem, setCartItem] = useState([]);
   const [sumValue, setSumValue] = useState(0);
+  const [ cartId, setCardId]  = useState();
   const navigate = useNavigate();
   const handleQuantity = async (e, item) => {
     try {
@@ -30,6 +31,7 @@ const Cart = () => {
       const { cart } = await getCartItems();
       setCartItem(cart?.items);
       setSumValue(cart?.bill);
+      setCardId(cart?._id);
     } catch (error) {
       toast.error("Error fetching cart");
     }
@@ -39,6 +41,7 @@ const Cart = () => {
         navigate("/checkout", { state : {
           cart : cartItem,
           bill : sumValue,
+          id: cartId
         }})
   }
   return (

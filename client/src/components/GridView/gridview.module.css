@@ -4,6 +4,7 @@
     justify-content: start;
     width: 100%;
     gap: 2rem;
+    min-height: 100%;
 }
 
 .product_container {
@@ -26,6 +27,7 @@
     object-position: center;
     object-fit: cover;
     width: 100%;
+    max-width: 300px;
 }
 .primary_image {
     background-color: white;

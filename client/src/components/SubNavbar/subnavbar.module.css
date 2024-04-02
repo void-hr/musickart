@@ -1,15 +1,39 @@
 .home_navbar {
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
 }
-
-.navbar_left,
-.navbar_right {
+.links a{
+    text-decoration: none;
+    color: black;
+    font-family: "Roboto";
+    font-weight: 400;
+    padding-left: 10px;
+}
+.navbar_left{
     display: flex;
     align-items: last baseline;
     justify-content: center;
     gap: 3rem;
+}
+.navbar_right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+.view_cart_button{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #1D7000;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-weight: 500;
+    padding: 0px 24px;
+    cursor: pointer;
+
 }
 
 .navbar_logo {
@@ -22,7 +46,62 @@
     width: 40px;
 }
 
+.profile {
+    height: 60px;
+    background-color: white;
+    text-transform: capitalize;
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    border-color: #2E0052;
+    position: relative;
+    cursor: pointer;
+}
+.profile :first-child {
+    width: 100%;
+    height: 100%;display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(0%,101%);
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    z-index: 1000;
+    border-radius: 12px;
+    min-width: 200px;
+    font-size: large;
+    font-weight: 500;
+    -webkit-box-shadow: 2px 7px 28px -15px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px 7px 28px -15px rgba(0,0,0,0.75);
+box-shadow: 2px 7px 28px -15px rgba(0,0,0,0.75)
+}
+.menu p {
+    margin: 0;
+    font-size: large;
+    padding: 10px 30px;
+    text-align: center;
+} 
+.menu p:first-child{
+border-bottom: 1px solid #DDDDDD;
+}
 
+@media (max-width: 980px) {
+    .navbar_left a {
+        display: none;
+    }
+    .route{
+        display: none;
+    }
+}
 @media (max-width: 480px) {
     .home_navbar {
         display: none;

@@ -9,6 +9,7 @@ import SuccessPage from "./pages/SuccessPage/SuccessPage";
 import InvoicePage from "./pages/InvoicePage/InvoicePage";
 import { CartProvider } from "./Context/CartContext";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import InvoiceDetailPage from "./pages/InvoiceDetailPage/InvoiceDetailPage";
 
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
         <Route path="/invoices" element={<InvoicePage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/invoice/:id" element={<InvoiceDetailPage />} />
+
 
       </Routes>
         </CartProvider>

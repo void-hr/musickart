@@ -5,8 +5,8 @@ const connectDB = require("./config/mongoDB");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
-
-
+const orderRoutes = require("./routes/orderRoutes");
+const feedbackRoutes = require("./routes/feedbackRoutes");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8001;
@@ -23,6 +23,10 @@ app.use(cors(corsOptions));
 app.use("/api/v1/account", authRoutes);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/cart", cartRoutes);
+app.use("/api/v1/invoice", orderRoutes);
+app.use("/api/v1/feedback", feedbackRoutes);
+
+
 
 
 app.get("/", (req, res) => {

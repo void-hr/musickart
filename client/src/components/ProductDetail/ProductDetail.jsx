@@ -3,34 +3,34 @@ import logo from "../../assets/icons/logo.png";
 import cart from "../../assets/icons/cart.svg";
 import backarrow from "../../assets/icons/backarrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import SubNavbar from "../SubNavbar/SubNavbar";
+import { addItemsToCart } from "../../api/orders";
+import { useCart } from "../../Context/CartContext";
 const ProductDetail = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-
+  const { totalItems, setTotalItems} = useCart();
+  const [ primaryImage, setPrimaryImage] = useState(state?.data?.images[0])
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [totalItems]);
+
+  const handleAddToCart = async() => {
+      try {
+        const res = await addItemsToCart(state?.data?._id);
+        setTotalItems(prev => prev + 1);
+        navigate("/cart")
+        toast.success("Added to cart");
+      } catch (error) {
+          console.log(error.message);
+      }
+  }
   return (
     <div className={styles.container}>
-      <div className={styles.home_navbar}>
-        <div className={styles.navbar_left}>
-          <span className={styles.navbar_logo}>
-            <img src={logo} alt="logo" />
-            <h1>Musicart</h1>
-          </span>
-          <p>Home / {state?.data?.model}</p>
-        </div>
-        <div className={styles.navbar_right}>
-          <button type="button" className={styles.view_cart_button}>
-            <img src={cart} alt="cart" />
-            <p>View Cart</p>
-          </button>
-        </div>
-      </div>
+      <SubNavbar model={state?.data?.model}/>
       <button
         className={styles.redirect_button}
         type="button"
@@ -45,7 +45,7 @@ const ProductDetail = () => {
       >
         <img src={backarrow} alt="backarrow" />
       </button>
-      <button type="button" className={styles.mobile_buy_now}>
+      <button type="button" className={styles.mobile_buy_now} onClick={() => navigate("/cart")}>
         Buy Now
       </button>
 
@@ -64,14 +64,13 @@ const ProductDetail = () => {
         </h1>
 
         <div className={styles.detailed_container}>
-          {/* images */}
           <div className={styles.product_images}>
             <div className={styles.primary_image}>
-              <img src={state?.data?.images[0]} alt={state?.data?.model} />
+              <img src={primaryImage} alt={state?.data?.model} />
             </div>
             <div className={styles.secondary_images_container}>
               {state?.data?.images.slice(1, 4).map((elem, idx) => (
-                <div key={idx} className={styles.secondary_image}>
+                <div key={idx} className={styles.secondary_image} onClick={() => setPrimaryImage(elem)}>
                   <img src={elem} alt={state?.data?.model} />
                 </div>
               ))}
@@ -113,10 +112,10 @@ const ProductDetail = () => {
               <p className={styles.brand_para}>Brand</p> - {state?.data?.brand}{" "}
             </span>
             <div className={styles.button_group}>
-              <button type="button" className={styles.add_to_cart}>
+              <button type="button" className={styles.add_to_cart} onClick={handleAddToCart}>
                 Add to cart
               </button>
-              <button type="button" className={styles.buy_now}>
+              <button type="button" className={styles.buy_now} onClick={() => navigate("/cart")}>
                 Buy Now
               </button>
             </div>

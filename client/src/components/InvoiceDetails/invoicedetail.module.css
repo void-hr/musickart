@@ -111,6 +111,14 @@
     color: #797979;
 }
 
+.billing_address{
+    width: 250px;
+}
+
+.billing_address p:first-child {
+    margin-bottom: 20px;
+}
+
 .select_payment {
     background-color: transparent;
     outline: none;
@@ -173,6 +181,7 @@
     flex-direction: column;
     align-items: end;
     width: 100%;
+    flex: 1;
 
 }
 
@@ -195,11 +204,14 @@
     font-size: larger;
     margin: 0;
     margin-bottom: 20px;
+    width: clamp(300px, 300px, 600px);
+
 }
 
 .order_summary_container {
     padding-bottom: 20px;
     border-bottom: 1.5px solid #E1E1E1;
+    
 }
 
 .order_summary_delivery,
@@ -347,6 +359,11 @@
 
     .place_your_order_left {
         display: none;
+    }
+    .order_summary_container {
+        min-width: 100% ;
+    }.checkout_container_right{
+        width: 90%;
     }
 }
 

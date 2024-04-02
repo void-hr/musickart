@@ -74,8 +74,9 @@ const LoginForm = () => {
                 id="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
+                className={formik.errors.password ? styles.input_error : ""}
               />
-              {formik.errors.password && <p className={styles.error_para}>{formik.errors.password}</p>}
+              { formik.errors.password && <p className={styles.error_para}>{formik.errors.password}</p>}
               <button type="button" className={styles.login_button}  onClick={formik.handleSubmit}>
                 Continue
               </button>
