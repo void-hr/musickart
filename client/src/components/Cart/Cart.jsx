@@ -140,7 +140,7 @@ const Cart = () => {
                   <p>Total Amount</p>
                   <p>&#x20b9; {sumValue + 45}</p>
                 </span>
-                <button className={styles.place_order}>Place Order</button>
+                <button type="button" className={styles.place_order} onClick={handlePlaceOrder}>Place Order</button>
               </div>
             </div>
           </div>

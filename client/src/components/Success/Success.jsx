@@ -1,8 +1,10 @@
 import styles from "./success.module.css"
 import logo from "../../assets/icons/logo.png"
 import success from "../../assets/images/sucess.png"
+import { useNavigate } from "react-router-dom"
 
 const Success = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
         <div className={styles.music_logo}>
@@ -15,7 +17,7 @@ const Success = () => {
             <img src={success} alt="celebration" />
             <h1>Order is placed successfully!</h1>
             <p>You  will be receiving a confirmation email with order details</p>
-            <button type="button">Go back to Home page</button>
+            <button type="button" onClick={()=> navigate("/")}>Go back to Home page</button>
             </div>
         </div>
 

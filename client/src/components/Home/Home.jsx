@@ -64,7 +64,7 @@ const Home = () => {
   const [view, setView] = useState(0);
   const [products, setProducts] = useState([]);
   const [ filters, setFilters ] = useState({});
-  const [ showFeedback, setShowFeedback] = useState(true);
+  const [ showFeedback, setShowFeedback] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {

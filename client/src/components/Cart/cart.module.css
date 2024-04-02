@@ -186,6 +186,7 @@
     border-radius: 10px;
     text-transform: uppercase;
     background-color: #FFD600;
+    cursor: pointer;
 }
 .mobile_cart_container{
     display: none;
@@ -284,6 +285,7 @@
 
     .mobile_button_container {
         border-top: 1px solid #000;
+        cursor: pointer;
 
     }
 .desk_empty_cart {
@@ -296,7 +298,7 @@
     height: 100%;
     align-items: center;
     display: flex;
-    justify-content: center;
+    justify-content: start;
 }
     .final_amount {
         display: flex;
@@ -324,6 +326,7 @@
     }
     .mobile_button_container{
         width: 100%;
+        cursor: pointer;
     }
 
     .mobile_button_container button {
