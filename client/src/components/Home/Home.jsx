@@ -159,7 +159,7 @@ const Home = () => {
             <option value="featured" defaultChecked hidden>Sort by: Featured</option>
             <option value="lowest">Price: Lowest</option>
             <option value="highest">Price: Highest</option>
-            <option value="sortaz">Name: (A-Z)</option>
+            <option value="az">Name: (A-Z)</option>
             <option value="za">Name: (Z-A)</option>
 
           </select>
