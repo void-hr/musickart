@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../Context/CartContext";
 import {addItemsToCart} from "../../api/orders";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/Auth";
 const GridView = ({ products }) => {
   const navigate = useNavigate();
   const { totalItems, setTotalItems } = useCart();
+  const { isLogged } = useContext(AuthContext);
+  
   const addToCart = async(e, id) => {
     e.stopPropagation();
+    !isLogged && navigate("/login")
     try {
       const res = await addItemsToCart(id);
       setTotalItems(prev => prev + 1);
@@ -23,7 +28,7 @@ const GridView = ({ products }) => {
         <div key={elem?._id} className={styles.product_container} onClick={() => navigate(`/details/${elem?._id}`, { state: { data: elem } })}>
           <div className={styles.product_image}>
             <img src={elem?.images[0]} alt={elem.name}  className={styles.primary_image}/>
-            <img src={cartlogo} alt="cart" className={styles.cart_logo} onClick={(e) => addToCart(e,elem._id)}/>
+            <img src={cartlogo} alt="cart" className={styles.cart_logo} onClick={(e) => addToCart(e,elem._id) }/> 
           </div>
           <div className={styles.product_info} >
             <p className={styles.name_para}>  {elem?.model}</p>

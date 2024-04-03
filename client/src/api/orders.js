@@ -106,7 +106,6 @@ export const fetchInvoice = async () => {
         }
     } catch (error) {
         const customErrorMessage = error?.response?.data?.status === "ERROR" ? error?.response?.data?.message : "Something Went Wrong";
-        console.log(error)
         throw new Error(customErrorMessage);
     }
 }

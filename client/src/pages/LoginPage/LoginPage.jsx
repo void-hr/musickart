@@ -6,7 +6,6 @@ import { useContext } from "react"
 import AuthProvider from "../../App"
 const LoginPage = () => {
 const val  = useContext(AuthProvider);
-console.log("fromlogin",val)
   return (
     <div className={styles.container}>
       <Header  />

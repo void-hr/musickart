@@ -13,6 +13,7 @@ import SubNavbar from "../SubNavbar/SubNavbar";
 import { useNavigate } from "react-router-dom";
 import Feedback from "../Feedback/Feedback";
 import { SearchContext } from "../../Context/SearchContext";
+import { useCart } from "../../Context/CartContext";
 const selectOptions = [
   {
     name: 'type',
@@ -66,13 +67,13 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [showFeedback, setShowFeedback] = useState(false);
   const [ loading, setLoading ] = useState(true);
+  const { totalItems}  = useCart();
   const { searchQuery, setSearchQuery } = useContext(SearchContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchAllProducts();
-    console.log(searchQuery)
-  }, [searchQuery])
+  }, [searchQuery, totalItems])
 
 
   const fetchAllProducts = async () => {
@@ -112,7 +113,6 @@ const Home = () => {
   }
 
 
-  console.log()
 
   return (
     <div className={styles.container}>

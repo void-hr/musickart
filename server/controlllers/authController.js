@@ -38,7 +38,6 @@ const registerAccount = async (req, res) => {
       status: "SUCCESS",
     });
   } catch (error) {
-    console.log(error.message)
     return res
       .status(500)
       .json({ message: "Internal Server Error", status: "ERROR" });

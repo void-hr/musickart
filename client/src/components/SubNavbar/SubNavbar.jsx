@@ -60,7 +60,7 @@ const SubNavbar = ({ model }) => {
           <div onClick={() => setShowProfileMenu(!showProfileMenu)}> {user}</div>
           {showProfileMenu && <div className={styles.menu} >
             <p onClick={() => setShowProfileMenu(!showProfileMenu)}>{userName}</p>
-            <p onClick={() => { setShowProfileMenu(!setShowProfileMenu); logout }}>Logout</p> </div>}
+            <p onClick={() => { setShowProfileMenu(!setShowProfileMenu); logout() }}>Logout</p> </div>}
         </div>}
       </div>}
     </div>

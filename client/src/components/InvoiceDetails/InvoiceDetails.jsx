@@ -9,7 +9,6 @@ const InvoiceDetails = () => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState(localStorage.getItem("user") ? localStorage.getItem("user") : "")
 
-    console.log(JSON.stringify(state, null, 2))
     return (
 
         <div className={styles.container}>
