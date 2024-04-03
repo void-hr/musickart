@@ -5,7 +5,7 @@ import search from "../../assets/icons/search.png";
 import listview from "../../assets/icons/listview.svg";
 import gridview from "../../assets/icons/gridview.svg";
 import chatbot from "../../assets/icons/chatbot.svg";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import GridView from "../GridView/GridView";
 import ListView from "../ListView/ListView";
 import { fetchProducts } from "../../api/product";
@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import Feedback from "../Feedback/Feedback";
 import { SearchContext } from "../../Context/SearchContext";
 import { useCart } from "../../Context/CartContext";
+import { useMediaQuery } from "react-responsive";
 const selectOptions = [
   {
     name: 'type',
@@ -68,12 +69,27 @@ const Home = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [ loading, setLoading ] = useState(true);
   const { totalItems}  = useCart();
+  const feedbackRef = useRef(null)
   const { searchQuery, setSearchQuery } = useContext(SearchContext);
   const navigate = useNavigate();
-
+  const onlyGrid = useMediaQuery({
+    query: '(max-width: 800px)'
+  });
   useEffect(() => {
     fetchAllProducts();
-  }, [searchQuery, totalItems])
+    onlyGrid ? setView(0) : "";
+
+    const handleClickOutside = (event) => {
+      if (feedbackRef.current && !feedbackRef.current.contains(event.target)) {
+        setShowFeedback(false); 
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [searchQuery, totalItems, onlyGrid])
 
 
   const fetchAllProducts = async () => {
@@ -94,21 +110,11 @@ const Home = () => {
   const handleFilter = (e) => {
     const { name, value } = e.target;
 
-    if (name === "search") {
-      const delay = setTimeout(() => {
-        setSearchQuery((prevFilters) => ({
-          ...prevFilters,
-          [name]: value !== "Featured" ? value : "",
-        }));
-        return () => clearTimeout(delay);
-      }, 2000);
-    }
-    else {
       setSearchQuery((prevFilters) => ({
         ...prevFilters,
         [name]: value !== "Featured" ? value : "",
       }))
-    }
+    
 
   }
 
@@ -131,12 +137,13 @@ const Home = () => {
         </div>
       </div>
       <div className={styles.search_bar}>
-        <img src={search} alt="search" className={styles.search_bar_image} />
+        <img src={search} alt="search"  className={styles.search_bar_image} />
         <input
           type="text"
           className={styles.search_bar_input}
           placeholder="Search by Product Name"
           name="search"
+          value={searchQuery?.search}
           onChange={handleFilter}
         />
       </div>
@@ -159,6 +166,7 @@ const Home = () => {
               className={
                 view === 1 ? styles.view_icons_active : styles.view_icons
               }
+              style={onlyGrid ? { display:"none"} : null}
               onClick={() => setView(1)}
             />
           </span>
@@ -200,11 +208,11 @@ const Home = () => {
 
 { loading ? <p className={styles.loader}> Loading... </p>:      <div className={styles.product_container}>
         {view === 0 ? <GridView products={products} /> : <ListView products={products} />}
-        <div className={styles.feedback}>
-          <div className={styles.feeback_in} onClick={() => setShowFeedback(!showFeedback)}>
+        <div className={styles.feedback} ref={feedbackRef}>
+          <div className={styles.feeback_in} onClick={() => setShowFeedback(!showFeedback)} >
             <img src={chatbot} alt="chatbot" />
           </div>
-          {showFeedback && <div className={styles.modal}>
+          {showFeedback && <div className={styles.modal} >
             <Feedback setShowFeedback={setShowFeedback} />
           </div>}
         </div>

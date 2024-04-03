@@ -1,14 +1,16 @@
 import styles from "./productdetail.module.css";
 import backarrow from "../../assets/icons/backarrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useLayoutEffect, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import SubNavbar from "../SubNavbar/SubNavbar";
 import { addItemsToCart } from "../../api/orders";
 import { useCart } from "../../Context/CartContext";
+import { AuthContext } from "../../Context/Auth";
 const ProductDetail = () => {
   const navigate = useNavigate();
+  const { isLogged } = useContext(AuthContext);
   const { state } = useLocation();
   const { totalItems, setTotalItems} = useCart();
   const [ primaryImage, setPrimaryImage] = useState(state?.data?.images[0])
@@ -17,6 +19,7 @@ const ProductDetail = () => {
   }, [totalItems]);
 
   const handleAddToCart = async() => {
+    if (!isLogged) return navigate("/")
       try {
         const res = await addItemsToCart(state?.data?._id);
         setTotalItems(prev => prev + 1);
@@ -43,7 +46,7 @@ const ProductDetail = () => {
       >
         <img src={backarrow} alt="backarrow" />
       </button>
-      <button type="button" className={styles.mobile_buy_now} onClick={() => navigate("/cart")}>
+      <button type="button" className={styles.mobile_buy_now} onClick={() => isLogged ? navigate("/cart") : navigate("/")}>
         Buy Now
       </button>
 
@@ -110,7 +113,7 @@ const ProductDetail = () => {
               <button type="button" className={styles.add_to_cart} onClick={handleAddToCart}>
                 Add to cart
               </button>
-              <button type="button" className={styles.buy_now} onClick={() => navigate("/cart")}>
+              <button type="button" className={styles.buy_now}  onClick={() => isLogged ? navigate("/cart") : navigate("/")}>
                 Buy Now
               </button>
             </div>

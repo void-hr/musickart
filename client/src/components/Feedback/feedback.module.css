@@ -8,7 +8,6 @@
     bottom: 9vh; 
     right: -6vw;
     gap: 10px;
-    height: 40vh;
     justify-content: space-between;
 
 }
@@ -29,12 +28,13 @@
 
 .feedback_area{
     border: 1px solid #c0b8b8;
-    height: 150px;
+    /* height: 150px; */
     width: 250px;
     resize: none;
     color: #919191;
     border-radius: 5px;
     font-family: "Roboto";
+    min-height: 200px;
 }
 
 .form_error {

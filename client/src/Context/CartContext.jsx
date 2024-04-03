@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getCartItems } from "../api/orders";
-
-
+import { AuthContext } from "./Auth"; 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const [totalItems, setTotalItems] = useState(0);
+    const {isLogged} = useContext(AuthContext);
     useEffect(() => {
         const fetchAllCart = async () => {
             try {
@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
             }
         }
         fetchAllCart();
-    }, [totalItems])
+    }, [totalItems, isLogged])
 
     return (
         <CartContext.Provider value={{ totalItems, setTotalItems }}>

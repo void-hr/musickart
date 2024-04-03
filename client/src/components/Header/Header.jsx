@@ -45,7 +45,7 @@ const Header = () => {
         pathname === "/" || pathname.includes("/details") || pathname === "/cart" ?
           <header className={styles.mobile_search_header}>
             <div className={styles.mobile_header_search_container}>
-              <input type="text" placeholder="Search MusicKart" name="search" onChange={handleSearch}/>
+              <input type="text" value={searchQuery?.search} placeholder="Search MusicKart" name="search" onChange={handleSearch}/>
               <img src={search} alt="search" />
             </div>
           </header>
