@@ -11,6 +11,7 @@ const Cart = () => {
   const [cartItem, setCartItem] = useState([]);
   const [sumValue, setSumValue] = useState(0);
   const [ cartId, setCardId]  = useState();
+  const [ loading, setLoading ] = useState(true);
   const navigate = useNavigate();
   const handleQuantity = async (e, item) => {
     try {
@@ -32,7 +33,9 @@ const Cart = () => {
       setCartItem(cart?.items);
       setSumValue(cart?.bill);
       setCardId(cart?._id);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       toast.error("Error fetching cart");
     }
   };
@@ -66,7 +69,7 @@ const Cart = () => {
         <h1> My Cart</h1>
       </div>
 
-      {cartItem?.length > 0 ? (
+   { !loading ? cartItem?.length > 0 ? (
         <div className={styles.cart_total_items}>
           <div className={styles.cart_items}>
             <div className={styles.cart_item_detail}>
@@ -152,11 +155,11 @@ const Cart = () => {
           <h1>Your Cart is Empty </h1>
           <p> Add items to your cart and visit again</p>
         </div>
-      )}
+      ) : <p className={styles.loader}>Loading... </p>}
     
 
 <div className={styles.mobile_cart_container}>
-  {cartItem?.length > 0 ? (
+  { !loading ? cartItem?.length > 0 ? (
     <>
       {cartItem.map((item) => (
         <div className={styles.mobile_cart_card} key={item.product}>
@@ -194,7 +197,7 @@ const Cart = () => {
       <h1>Your Cart is Empty</h1>
       <p>Add items to your cart and visit again</p>
     </div>
-  )}
+  ) : <p className={styles.loader}>Loading... </p>}
 </div>
 
     </div>

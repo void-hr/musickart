@@ -1,6 +1,4 @@
 import styles from "./productdetail.module.css";
-import logo from "../../assets/icons/logo.png";
-import cart from "../../assets/icons/cart.svg";
 import backarrow from "../../assets/icons/backarrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
@@ -77,7 +75,6 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* details part */}
           <div className={styles.product_all_details}>
             <h1>{state?.data?.model}</h1>
             <div className={styles.review_container}>
@@ -103,13 +100,11 @@ const ProductDetail = () => {
               ))}
             </ul>
             <span className={styles.availability}>
-              {" "}
-              <p className={styles.availability_para}>Available</p>-{" "}
-              {state?.data?.availability}{" "}
+              <p className={styles.availability_para}>Available</p>-
+              <p> &nbsp;{ state?.data?.availability}</p>
             </span>
             <span className={styles.brand}>
-              {" "}
-              <p className={styles.brand_para}>Brand</p> - {state?.data?.brand}{" "}
+              <p className={styles.brand_para}>Brand</p> - <p>&nbsp; { state?.data?.brand} </p> 
             </span>
             <div className={styles.button_group}>
               <button type="button" className={styles.add_to_cart} onClick={handleAddToCart}>

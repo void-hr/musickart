@@ -74,9 +74,17 @@
     display: none;
 }
 
+.loader{
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    font-weight: 600;
+}
 @media (max-width: 480px) {
     .container {
         width: 100%;
+        height: 100%;
+        margin-bottom: 10vh;
     }
     .redirect_button{
         display: none;

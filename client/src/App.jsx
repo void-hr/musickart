@@ -10,6 +10,7 @@ import InvoicePage from "./pages/InvoicePage/InvoicePage";
 import { CartProvider } from "./Context/CartContext";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import InvoiceDetailPage from "./pages/InvoiceDetailPage/InvoiceDetailPage";
+import { SearchProvider } from "./Context/SearchContext";
 
 
 function App() {
@@ -17,21 +18,23 @@ function App() {
 
   return (
     <>
-        <CartProvider>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/details/:details" element={<DetailPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/invoices" element={<InvoicePage />} />
-        <Route path="/success" element={<SuccessPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/invoice/:id" element={<InvoiceDetailPage />} />
+      <CartProvider>
+        <SearchProvider>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/details/:details" element={<DetailPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/invoices" element={<InvoicePage />} />
+            <Route path="/success" element={<SuccessPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/invoice/:id" element={<InvoiceDetailPage />} />
 
 
-      </Routes>
-        </CartProvider>
+          </Routes>
+        </SearchProvider>
+      </CartProvider>
       <Toaster
         position="top-right"
         toastOptions={{

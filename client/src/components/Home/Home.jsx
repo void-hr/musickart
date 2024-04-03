@@ -5,26 +5,27 @@ import search from "../../assets/icons/search.png";
 import listview from "../../assets/icons/listview.svg";
 import gridview from "../../assets/icons/gridview.svg";
 import chatbot from "../../assets/icons/chatbot.svg";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GridView from "../GridView/GridView";
 import ListView from "../ListView/ListView";
 import { fetchProducts } from "../../api/product";
 import SubNavbar from "../SubNavbar/SubNavbar";
 import { useNavigate } from "react-router-dom";
 import Feedback from "../Feedback/Feedback";
+import { SearchContext } from "../../Context/SearchContext";
 const selectOptions = [
-  { 
-    name: 'type', 
+  {
+    name: 'type',
     options: [
       { display: 'Featured', value: 'Featured' },
       { display: 'In-ear headphone', value: 'In Ear' },
       { display: 'On-ear headphone', value: 'On Ear' },
       { display: 'Over-ear headphone', value: 'Over Ear' }
-    ], 
-    defaultValue: "Headphone Type" 
+    ],
+    defaultValue: "Headphone Type"
   },
-  { 
-    name: 'company', 
+  {
+    name: 'company',
     options: [
       { display: 'Featured', value: 'Featured' },
       { display: 'JBL', value: 'JBL' },
@@ -33,29 +34,29 @@ const selectOptions = [
       { display: 'Zebronics', value: 'ZEBRONICS' },
       { display: 'Marshall', value: 'MARSHALL' },
       { display: 'Ptron', value: 'PTRON' }
-    ], 
-    defaultValue: "Company" 
+    ],
+    defaultValue: "Company"
   },
-  { 
-    name: 'colour', 
+  {
+    name: 'colour',
     options: [
       { display: 'Featured', value: 'Featured' },
       { display: 'Black', value: 'Black' },
       { display: 'White', value: 'White' },
       { display: 'Blue', value: 'Blue' },
       { display: 'Brown', value: 'Brown' }
-    ], 
-    defaultValue: "Colour" 
+    ],
+    defaultValue: "Colour"
   },
-  { 
-    name: 'price', 
+  {
+    name: 'price',
     options: [
       { display: 'Featured', value: 'Featured' },
       { display: '₹0 - ₹1000', value: '1' },
       { display: '₹1000 - ₹10000', value: '2' },
       { display: '₹10000 - ₹20000', value: '3' }
-    ], 
-    defaultValue: "Price" 
+    ],
+    defaultValue: "Price"
   },
 ];
 
@@ -63,20 +64,24 @@ const selectOptions = [
 const Home = () => {
   const [view, setView] = useState(0);
   const [products, setProducts] = useState([]);
-  const [ filters, setFilters ] = useState({});
-  const [ showFeedback, setShowFeedback] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [ loading, setLoading ] = useState(true);
+  const { searchQuery, setSearchQuery } = useContext(SearchContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchAllProducts();
-  }, [filters])
+    console.log(searchQuery)
+  }, [searchQuery])
 
 
   const fetchAllProducts = async () => {
     try {
-      const res = await fetchProducts(filters);
+      const res = await fetchProducts(searchQuery);
       setProducts(res);
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   };
@@ -87,13 +92,28 @@ const Home = () => {
 
   const handleFilter = (e) => {
     const { name, value } = e.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name] : value !== "Featured" ? value : "",
-    }))
+
+    if (name === "search") {
+      const delay = setTimeout(() => {
+        setSearchQuery((prevFilters) => ({
+          ...prevFilters,
+          [name]: value !== "Featured" ? value : "",
+        }));
+        return () => clearTimeout(delay);
+      }, 2000);
+    }
+    else {
+      setSearchQuery((prevFilters) => ({
+        ...prevFilters,
+        [name]: value !== "Featured" ? value : "",
+      }))
+    }
+
   }
 
-  
+
+  console.log()
+
   return (
     <div className={styles.container}>
 
@@ -178,18 +198,17 @@ const Home = () => {
         </div>
       </div>
 
-
-      <div className={styles.product_container}>
+{ loading ? <p className={styles.loader}> Loading... </p>:      <div className={styles.product_container}>
         {view === 0 ? <GridView products={products} /> : <ListView products={products} />}
         <div className={styles.feedback}>
-          <div className={styles.feeback_in} onClick={()=> setShowFeedback(!showFeedback)}>
-          <img src={chatbot} alt="chatbot" />
+          <div className={styles.feeback_in} onClick={() => setShowFeedback(!showFeedback)}>
+            <img src={chatbot} alt="chatbot" />
           </div>
-          { showFeedback && <div className={styles.modal}>
-          <Feedback setShowFeedback={setShowFeedback}/>
+          {showFeedback && <div className={styles.modal}>
+            <Feedback setShowFeedback={setShowFeedback} />
           </div>}
         </div>
-      </div>
+      </div> }
 
     </div>
   );

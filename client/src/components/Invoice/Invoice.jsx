@@ -9,13 +9,16 @@ import { fetchInvoice } from "../../api/orders";
 const Invoice = () => {
     const navigate = useNavigate();
   const [ invoices, setInvoices] = useState();
+  const [ loading, setLoading] = useState(true);
     useLayoutEffect(() => {
 
       const allInvoices = async() => {
           try {
               const res = await fetchInvoice();
               setInvoices(res)
+              setLoading(false)
           } catch (error) {
+            setLoading(false)
             toast.error("Something went wrong")
           }
       }
@@ -47,7 +50,7 @@ const Invoice = () => {
       <h1> My Invoices</h1>
 </div>
 
-  {invoices?.map((elem) =>  <div className={styles.invoices} key={elem._id}>
+  { !loading ? invoices?.map((elem) =>  <div className={styles.invoices} key={elem._id}>
         <div className={styles.invoices_left}>
             <img src={invoice} alt="invoicelogo" />
             <div className={styles.invoice_info}>
@@ -63,7 +66,7 @@ const Invoice = () => {
             </button>
         </div>
 
-    </div>) }
+    </div>) : <p className={styles.loader}> Loading...</p>}
     </div>
   )
 }

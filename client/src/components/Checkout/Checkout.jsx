@@ -9,6 +9,7 @@ import { addInvoice } from "../../api/orders";
 import { cleanCart } from "../../api/orders";
 
 import toast from "react-hot-toast";
+import { useCart } from "../../Context/CartContext";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Checkout = () => {
   const [userName, setUserName] = useState(
     localStorage.getItem("user") ? localStorage.getItem("user") : "Test User"
   );
+  const { totalItems , setTotalItems} = useCart();
 
 
 
@@ -28,6 +30,7 @@ const Checkout = () => {
       const res = await addInvoice({ cart: state?.cart, billingAddress: values.address, paymentMethod: values.paymentMethod, bill: state?.bill });
       const emptyCart = await cleanCart(state?.id)
       navigate("/success")
+      setTotalItems(0);
       toast.success("Order Placed")
     } catch (error) {
       toast.error("Oops")

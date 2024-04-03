@@ -237,7 +237,7 @@
         border: none;
         margin-top: 0.5rem;
         cursor: pointer;
-    filter: drop-shadow(-1px 3px 2px #d4d3d3);
+        filter: drop-shadow(-1px 3px 2px #d4d3d3);
         
     }
     .home_navbar {
@@ -275,7 +275,8 @@
    }
 
     .buy_now {
-        display: none;
+        display: flex;
+        border-radius: 12px;
     }
 
     .mobile_product_description{
@@ -284,5 +285,11 @@
     
     .product_description{
         display: none;
+    }
+    .availability_para {
+        font-size: medium;
+    }
+    .brand_para {
+        font-size: large;
     }
 }
