@@ -30,7 +30,7 @@ const ProductDetail = () => {
   }
   return (
     <div className={styles.container}>
-      <SubNavbar model={state?.data?.model}/>
+      <SubNavbar model={state?.data?.model || " "}/>
       <button
         className={styles.redirect_button}
         type="button"

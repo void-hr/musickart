@@ -7,7 +7,9 @@ const HomePage = () => {
   return (
     <div className={styles.container}> 
         <Header />
+        <div className={styles.home}>
         <Home/>
+        </div>
         <Footer />
     </div>
   )

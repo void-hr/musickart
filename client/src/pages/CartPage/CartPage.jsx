@@ -6,7 +6,9 @@ const CartPage = () => {
   return (
     <div className={styles.container}>
     <Header />
+    <div className={styles.home}>
     <Cart />    
+    </div>
     <Footer />
     </div>
   )

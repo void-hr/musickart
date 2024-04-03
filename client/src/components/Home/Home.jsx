@@ -116,6 +116,8 @@ const Home = () => {
           type="text"
           className={styles.search_bar_input}
           placeholder="Search by Product Name"
+          name="search"
+          onChange={handleFilter}
         />
       </div>
 

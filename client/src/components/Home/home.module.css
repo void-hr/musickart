@@ -1,12 +1,13 @@
 .container {
-    width: 65%;
+    width: 100%;
     display: flex;
-    flex: 1;
     flex-direction: column;
     gap: 2rem;
     position: relative;
     justify-content: start;
     height: 100%;
+    flex: 1;
+    
 }
 
 
@@ -183,6 +184,8 @@
 } 
 .product_container{
     position: relative;
+   
+
 }
 
 @container banner (width < 750px) {
@@ -217,12 +220,17 @@
     }
 }
 
-@media (max-width: 850px) {
-    .container{
-        width: 90%;
+@media screen and (min-width: 480px) and (max-width: 600px) {
+    .banner_para {
+      font-size: x-large;
     }
-    
-}
+    .banner_content{
+        width: 50%;
+        display: flex;
+        align-items: start;
+        height: 100%;
+    }
+  }
 
 
 @media (width < 480px) {
@@ -233,6 +241,7 @@
     padding-bottom: 12vh;
     }
 
+    .banner_content{ width: 100%;}
     .banner {
         height: 15vh;   
         max-width: 90vw;
