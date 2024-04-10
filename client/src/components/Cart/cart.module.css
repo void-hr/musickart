@@ -17,6 +17,9 @@
     font-weight: 600;
 }
 
+.loader {
+    display: none;
+}
 .redirect_button{
     font-weight: 600;
     color: white;
@@ -37,7 +40,9 @@
     gap: 1rem;
 }
 
-
+.loader_mobile{
+    display: none;
+}
 
 .heading img {
     max-width: 45px;
@@ -384,7 +389,11 @@
         display: none;
     }
 
-  
+    .loader_mobile{
+        display: flex;
+        font-weight: 800;
+        font-size: large;
+    }
 
     .loader_screen {
         display: none;

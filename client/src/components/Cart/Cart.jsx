@@ -199,7 +199,7 @@ const Cart = () => {
             <h1>Your Cart is Empty</h1>
             <p>Add items to your cart and visit again</p>
           </div>
-        ) : <p className={styles.loader}>Loading... </p>}
+        ) : <p className={styles.loader_mobile}>Loading... </p>}
       </div>
 
     </div>
