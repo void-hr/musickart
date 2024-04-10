@@ -188,7 +188,7 @@ const Home = () => {
         </div>
         <div className={styles.filter_right}>
           <select name="sort" className={styles.sort_select} onChange={handleFilter} autoComplete="false">
-            <option value="featured" defaultChecked hidden>Sort by: Featured</option>
+            <option value="featured" >Sort by: Featured</option>
             <option value="lowest">Price: Lowest</option>
             <option value="highest">Price: Highest</option>
             <option value="az">Name: (A-Z)</option>
@@ -200,6 +200,7 @@ const Home = () => {
         <div className={styles.mobie_filter_right}>
           <select name="sort" className={styles.sort_select} onChange={handleFilter} autoComplete="false">
             <option value="featured" defaultChecked hidden>Sort By</option>
+            <option value="featured" >Featured</option>
             <option value="lowest">Price: Lowest</option>
             <option value="highest">Price: Highest</option>
             <option value="az">Name: (A-Z)</option>
