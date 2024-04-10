@@ -9,7 +9,7 @@ const AuthProvider = ({ children}) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         setIsLogged(!!token);
-    },[]);
+    },[isLogged]);
 
     const login = ( token, user ) => {
         localStorage.setItem("token", token);

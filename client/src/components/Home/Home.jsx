@@ -91,7 +91,7 @@ const Home = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [searchQuery, totalItems, onlyGrid])
+  }, [searchQuery, totalItems, onlyGrid, isLogged])
 
 
   const fetchAllProducts = async () => {

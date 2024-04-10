@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, redirectDocument } from "react-router-dom";
 import logo from "../../assets/icons/logo.png";
 import styles from "./registerform.module.css";
 import { registerAccount } from "../../api/auth";
@@ -35,8 +35,11 @@ const RegisterForm = () => {
         localStorage.setItem("token", res.token);
         localStorage.setItem("user", res.name);
         toast.success(`${res.message}`);
-        navigate("/");
-        resetForm();
+        // navigate("/", {
+        //   replace: true,
+    
+        // });
+        window.location.href = "/";
       }
     } catch (error) {
       resetForm();
@@ -53,8 +56,7 @@ const RegisterForm = () => {
         password: "",
       }}
       validationSchema={SignUpSchema}
-      onSubmit={(value, { resetForm }) =>
-        handleCreateAccount(value, { resetForm })
+      onSubmit={(value, { resetForm }) => { handleCreateAccount(value, { resetForm }) }
       }
     >
       {(formik) => (
@@ -70,32 +72,32 @@ const RegisterForm = () => {
             <Form className={styles.form_container}>
               <p className={styles.form_heading}>Create Account</p>
               <label>Your name</label>
-              <input type="text" 
-              id="name"
-              onChange={formik.handleChange}
-              className={formik.errors.name ? styles.input_error : ""}/>
-              {formik.errors.name && <p  className={styles.error_para}>{formik.errors.name}</p>}
+              <input type="text"
+                id="name"
+                onChange={formik.handleChange}
+                className={formik.errors.name ? styles.input_error : ""} />
+              {formik.errors.name && <p className={styles.error_para}>{formik.errors.name}</p>}
 
               <label>Mobile Number</label>
-              <input type="text" 
-              id="mobile"
-              onChange={formik.handleChange}
-              className={formik.errors.mobile ? styles.input_error : ""}/>
-              {formik.errors.mobile && <p  className={styles.error_para}>{formik.errors.mobile}</p>}
+              <input type="text"
+                id="mobile"
+                onChange={formik.handleChange}
+                className={formik.errors.mobile ? styles.input_error : ""} />
+              {formik.errors.mobile && <p className={styles.error_para}>{formik.errors.mobile}</p>}
 
               <label>Email Id</label>
-              <input type="email" 
-              id="email"
-              onChange={formik.handleChange}
-              className={formik.errors.email ? styles.input_error : ""}/>
-              {formik.errors.email && <p  className={styles.error_para}>{formik.errors.email}</p>}
+              <input type="email"
+                id="email"
+                onChange={formik.handleChange}
+                className={formik.errors.email ? styles.input_error : ""} />
+              {formik.errors.email && <p className={styles.error_para}>{formik.errors.email}</p>}
 
               <label>Password</label>
-              <input type="password" 
-              id="password"
-              onChange={formik.handleChange}
-              className={formik.errors.password ? styles.input_error : ""}/>
-              {formik.errors.password && <p  className={styles.error_para}>{formik.errors.password}</p>}
+              <input type="password"
+                id="password"
+                onChange={formik.handleChange}
+                className={formik.errors.password ? styles.input_error : ""} />
+              {formik.errors.password && <p className={styles.error_para}>{formik.errors.password}</p>}
 
               <p className={styles.confirm_para}>
                 By enrolling your mobile phone number, you consent to receive
