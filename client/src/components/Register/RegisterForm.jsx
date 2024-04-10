@@ -5,10 +5,13 @@ import { registerAccount } from "../../api/auth";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Context/Auth";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+
   const [showPassword, setShowPassword] = useState({
     password: false,
     confirmpassword: false,
@@ -32,14 +35,12 @@ const RegisterForm = () => {
     try {
       const res = await registerAccount(value);
       if (res?.token && res?.name) {
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("user", res.name);
+        const token = res?.token
+        const user =  res?.name
+        login(token , user)
         toast.success(`${res.message}`);
-        // navigate("/", {
-        //   replace: true,
-    
-        // });
-        window.location.href = "/";
+        navigate("/")
+       
       }
     } catch (error) {
       resetForm();

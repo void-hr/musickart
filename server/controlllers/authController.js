@@ -28,7 +28,7 @@ const registerAccount = async (req, res) => {
       password: hash,
     });
     const jwtToken = await jwt.sign(
-      { userId: newUser._id },
+      { userID: newUser._id },
       process.env.TOKEN_SECRET
     );
     return res.json({

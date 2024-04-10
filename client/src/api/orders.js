@@ -15,6 +15,7 @@ export const addItemsToCart = async (productId, quantity) => {
                     "Authorization": token
                 }
             }
+
             const { data } = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/cart/add`, value, header);
             if (data.status === "SUCCESS") {
                 return data;
