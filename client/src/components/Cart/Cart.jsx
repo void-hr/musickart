@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const [cartItem, setCartItem] = useState([]);
   const [sumValue, setSumValue] = useState(0);
-  const [ cartId, setCardId]  = useState();
-  const [ loading, setLoading ] = useState(true);
+  const [cartId, setCardId] = useState();
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const handleQuantity = async (e, item) => {
     try {
@@ -41,11 +41,13 @@ const Cart = () => {
   };
 
   const handlePlaceOrder = () => {
-        navigate("/checkout", { state : {
-          cart : cartItem,
-          bill : sumValue,
-          id: cartId
-        }})
+    navigate("/checkout", {
+      state: {
+        cart: cartItem,
+        bill: sumValue,
+        id: cartId
+      }
+    })
   }
   return (
     <div className={styles.container}>
@@ -69,7 +71,7 @@ const Cart = () => {
         <h1> My Cart</h1>
       </div>
 
-   { !loading ? cartItem?.length > 0 ? (
+      {!loading ? cartItem?.length > 0 ? (
         <div className={styles.cart_total_items}>
           <div className={styles.cart_items}>
             <div className={styles.cart_item_detail}>
@@ -148,57 +150,57 @@ const Cart = () => {
             </div>
           </div>
 
-       
+
         </div>
       ) : (
         <div className={styles.desk_empty_cart}>
           <h1>Your Cart is Empty </h1>
           <p> Add items to your cart and visit again</p>
         </div>
-      ) : <p className={styles.loader}>Loading... </p>}
-    
+      ) : <p className={styles.loader_screen}>Loading... </p>}
 
-<div className={styles.mobile_cart_container}>
-  { !loading ? cartItem?.length > 0 ? (
-    <>
-      {cartItem.map((item) => (
-        <div className={styles.mobile_cart_card} key={item.product}>
-          <div className={styles.cart_item_detail_left}>
-            <img src={item.images} alt={item.model} />
-            <span className={styles.cart_item_data}>
-              <label>{item.model}</label>
-              <p className={styles.item_price}> &#x20b9; {item.price}</p>
-              <p>{item.colour}</p>
-              <p>{item.availability}</p>
-              <span className={styles.item_total}>
-                <p>Total</p>
-                <p>&#x20b9; {item.quantity * item.price}</p>
+
+      <div className={styles.mobile_cart_container}>
+        {!loading ? cartItem?.length > 0 ? (
+          <>
+            {cartItem.map((item) => (
+              <div className={styles.mobile_cart_card} key={item.product}>
+                <div className={styles.cart_item_detail_left}>
+                  <img src={item.images} alt={item.model} />
+                  <span className={styles.cart_item_data}>
+                    <label>{item.model}</label>
+                    <p className={styles.item_price}> &#x20b9; {item.price}</p>
+                    <p>{item.colour}</p>
+                    <p>{item.availability}</p>
+                    <span className={styles.item_total}>
+                      <p>Total</p>
+                      <p>&#x20b9; {item.quantity * item.price}</p>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            ))}
+            <div className={styles.mobile_button_container}>
+              <span className={styles.convenience_fee}>
+                <p>Convenience Fee</p>
+                <p>&#x20b9; 45</p>
               </span>
-            </span>
+              <span className={styles.final_amount}>
+                <p>Total Amount</p>
+                <p>&#x20b9; {sumValue + 45}</p>
+              </span>
+              <button type="button" onClick={handlePlaceOrder}>
+                Place Order
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className={styles.empty_cart}>
+            <h1>Your Cart is Empty</h1>
+            <p>Add items to your cart and visit again</p>
           </div>
-        </div>
-      ))}
-      <div className={styles.mobile_button_container}>
-        <span className={styles.convenience_fee}>
-          <p>Convenience Fee</p>
-          <p>&#x20b9; 45</p>
-        </span>
-        <span className={styles.final_amount}>
-          <p>Total Amount</p>
-          <p>&#x20b9; {sumValue + 45}</p>
-        </span>
-        <button type="button" onClick={handlePlaceOrder}>
-          Place Order
-        </button>
+        ) : <p className={styles.loader}>Loading... </p>}
       </div>
-    </>
-  ) : (
-    <div className={styles.empty_cart}>
-      <h1>Your Cart is Empty</h1>
-      <p>Add items to your cart and visit again</p>
-    </div>
-  ) : <p className={styles.loader}>Loading... </p>}
-</div>
 
     </div>
   );
