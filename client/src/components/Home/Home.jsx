@@ -206,7 +206,7 @@ const Home = () => {
             <option value="az">Name: (A-Z)</option>
             <option value="za">Name: (Z-A)</option>
           </select>
-        </div>
+      </div>
       </div>
 
 { loading ? <p className={styles.loader}> Loading... </p>:      <div className={styles.product_container}>

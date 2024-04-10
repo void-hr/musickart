@@ -7,7 +7,6 @@ import styles from "./invoicepage.module.css"
 const InvoicePage = () => {
   return (
     <div className={styles.container}>
-        
         <Header />
         <Invoice />
         <Footer />

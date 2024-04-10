@@ -14,6 +14,10 @@ const Footer = () => {
   const navigate = useNavigate();
   const { isLogged, logout } = useContext(AuthContext);
   const { totalItems } = useCart();
+  const handleLogout = () => {
+    navigate("/");
+    logout();
+  }
   return (
     <>
       {pathname === "/login" || pathname === "/register" ? (
@@ -45,7 +49,7 @@ const Footer = () => {
               <img src={invoice} alt="invoice" />
               <p className={styles.nav_items_name}>Invoice</p>
             </div>}
-            <div className={styles.mobile_navbar} onClick={() => isLogged ? logout() : navigate("/login")}>
+            <div className={styles.mobile_navbar} onClick={() => isLogged ?  handleLogout() : navigate("/login")}>
               <img src={isLogged ? login : logoutLogo} alt="logout" />
               <p className={styles.nav_items_name}> {isLogged ? "Logout" : "Login"}</p>
             </div>
