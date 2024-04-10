@@ -41,10 +41,10 @@ const Footer = () => {
               <p className={styles.nav_items_name}>Cart</p>
               <div className={styles.mobile_cart_items}>{totalItems ? totalItems : 0}</div>
             </div>
-            <div className={ pathname === "/invoices" ? `${styles.mobile_navbar}  ${styles.mobile_active}` : styles.mobile_navbar}  onClick={() => isLogged ? navigate("/invoices") : navigate("/login")}>
+           {isLogged && <div className={ pathname === "/invoices" ? `${styles.mobile_navbar}  ${styles.mobile_active}` : styles.mobile_navbar}  onClick={() =>navigate("/invoices")}>
               <img src={invoice} alt="invoice" />
               <p className={styles.nav_items_name}>Invoice</p>
-            </div>
+            </div>}
             <div className={styles.mobile_navbar} onClick={() => isLogged ? logout() : navigate("/login")}>
               <img src={isLogged ? login : logoutLogo} alt="logout" />
               <p className={styles.nav_items_name}> {isLogged ? "Logout" : "Login"}</p>

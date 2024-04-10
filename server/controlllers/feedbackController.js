@@ -2,9 +2,9 @@ const Feedback = require('../models/feedbackSchema');
 
 const createFeedback = async (req, res) => {
   try {
-    const { userID, feedbackType, feedbackText } = req.body;
+    const { feedbackType, feedbackText } = req.body;
 
-    if (!userID || !feedbackType || !feedbackText) {
+    if (!feedbackType || !feedbackText) {
       return res.status(400).json({ message: 'All fields are required', status: 'ERROR' });
     }
 
@@ -14,7 +14,6 @@ const createFeedback = async (req, res) => {
     }
 
     const newFeedback = new Feedback({
-      userID,
       feedbackType,
       feedbackText,
     });

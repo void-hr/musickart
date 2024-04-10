@@ -173,6 +173,7 @@
 }
 .mobile_buy_now {
     display: none;
+    text-align: center;
 }
 
 .add_to_cart {
@@ -277,6 +278,8 @@
     .buy_now {
         display: flex;
         border-radius: 12px;
+        text-align: center;
+        justify-content: center;
     }
 
     .mobile_product_description{

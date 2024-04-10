@@ -58,7 +58,7 @@ const LoginForm = () => {
             <span className={styles.mobile_welcome_header}>
               <p className={styles.welcome_para}>Welcome</p>
             </span>
-            <Form className={styles.form_container}>
+            <Form className={styles.form_container} autoComplete="true">
               <p className={styles.form_heading}>Sign in</p>
               <label>Enter your email or mobile number</label>
               <input type="text"

@@ -177,6 +177,7 @@
 
 .mobile_buy_now_button {
     display: none;
+    cursor: pointer;
 }
 
 .banner_content {

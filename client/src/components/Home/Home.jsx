@@ -15,6 +15,7 @@ import Feedback from "../Feedback/Feedback";
 import { SearchContext } from "../../Context/SearchContext";
 import { useCart } from "../../Context/CartContext";
 import { useMediaQuery } from "react-responsive";
+import { AuthContext } from "../../Context/Auth";
 const selectOptions = [
   {
     name: 'type',
@@ -71,6 +72,7 @@ const Home = () => {
   const { totalItems}  = useCart();
   const feedbackRef = useRef(null)
   const { searchQuery, setSearchQuery } = useContext(SearchContext);
+  const { isLogged } = useContext(AuthContext);
   const navigate = useNavigate();
   const onlyGrid = useMediaQuery({
     query: '(max-width: 800px)'
@@ -104,7 +106,7 @@ const Home = () => {
   };
 
   const handleBuy = () => {
-    navigate("/cart")
+    isLogged ?  navigate("/cart") : navigate("/login")
   }
 
   const handleFilter = (e) => {
@@ -173,7 +175,7 @@ const Home = () => {
           <div className={styles.filter_group}>
 
             {selectOptions.map((select, idx) => (
-              <select key={idx} name={select.name} onChange={handleFilter} className={styles.custom_select}>
+              <select key={idx} name={select.name} onChange={handleFilter} className={styles.custom_select} autoComplete="false">
                 <option hidden defaultValue>{select.defaultValue}</option>
                 {select.options.map((option, i) => (
                   <option key={i} value={option.value}>{option.display}</option>
@@ -185,7 +187,7 @@ const Home = () => {
           </div>
         </div>
         <div className={styles.filter_right}>
-          <select name="sort" className={styles.sort_select} onChange={handleFilter}>
+          <select name="sort" className={styles.sort_select} onChange={handleFilter} autoComplete="false">
             <option value="featured" defaultChecked hidden>Sort by: Featured</option>
             <option value="lowest">Price: Lowest</option>
             <option value="highest">Price: Highest</option>
@@ -196,7 +198,7 @@ const Home = () => {
         </div>
 
         <div className={styles.mobie_filter_right}>
-          <select name="sort" className={styles.sort_select} onChange={handleFilter}>
+          <select name="sort" className={styles.sort_select} onChange={handleFilter} autoComplete="false">
             <option value="featured" defaultChecked hidden>Sort By</option>
             <option value="lowest">Price: Lowest</option>
             <option value="highest">Price: Highest</option>
