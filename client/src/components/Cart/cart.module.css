@@ -391,8 +391,8 @@
 
     .loader_mobile{
         display: flex;
-        font-weight: 800;
-        font-size: large;
+        font-weight: 600;
+        font-size: x-large;
     }
 
     .loader_screen {
