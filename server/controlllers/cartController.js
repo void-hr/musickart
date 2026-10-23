@@ -105,7 +105,7 @@ const deleteCart = async (req,res) => {
       return res.status(400).json({ message: "Invalid Cart ID", status: "ERROR" });
     }
 
-    const deletedCart = await Cart.findByIdAndDelete(cartId);
+    const deletedCart = await Cart.findOneAndDelete({ _id: cartId, user: req.body.userID });
 
     if (!deletedCart) {
       return res.status(404).json({ message: "Cart not found", status: "ERROR" });
