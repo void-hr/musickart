@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const app = express();
 const connectDB = require("./config/mongoDB");
 const authRoutes = require("./routes/authRoutes");
@@ -34,18 +35,21 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  res.json({
-    message: "Server is healthy 💪",
-    signal: "🟢",
-    status: 200,
+  const dbUp = mongoose.connection.readyState === 1;
+  res.status(dbUp ? 200 : 503).json({
+    message: dbUp ? "Server is healthy 💪" : "Database unreachable",
+    db: dbUp ? "connected" : "disconnected",
     time: new Date().toUTCString(),
   });
 });
 
 
 connectDB();
-app.listen(PORT, (err) => {
-  if (!err) {
+
+if (require.main === module) {
+  app.listen(PORT, () => {
     console.log(` 🚀 Server is up on PORT http://localhost:${PORT}`);
-  }
-});
+  });
+}
+
+module.exports = app;

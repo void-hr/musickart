@@ -5,8 +5,8 @@ const connectDB = async () => {
       await mongoose.connect(process.env.MONGODB_URL);
       console.log(`MongoDB Connected 💫`);
     } catch (error) {
-      console.error(`Something while establishing db connection  ${error.message}`);
-      process.exit(1);
+      // Don't exit: on Vercel that kills the function and every route (even /health) 500s.
+      console.error(`MongoDB connection failed: ${error.message}`);
     }
   }
   
