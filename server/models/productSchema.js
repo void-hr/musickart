@@ -6,6 +6,11 @@ const productSchema = new mongoose.Schema(
         type: String,
         required: true,
     },
+    type: {
+        type: String,
+        enum: ["In Ear", "On Ear", "Over Ear"],
+        required: true,
+    },
     brand: {
         type: String,
         required: true,
